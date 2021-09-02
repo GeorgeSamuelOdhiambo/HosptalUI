@@ -82,7 +82,7 @@ export default function Album() {
       <main>
         {/* Hero unit */}
         <div className={`${classes.heroContent} ${classes.paperContainer}`}>
-          <Container maxWidth="md">
+          <Container maxWidth="md ">
             <Typography
               component="h1"
               variant="h2"
