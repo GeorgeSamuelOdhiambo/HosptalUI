@@ -1,13 +1,16 @@
-import Dashboard from './Components/Workers/Dashbord';
-import './App.css';
-import Login from "./Components/Login"
-import Menuepage from "./Components/Workers/Menuepage"
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom"
+import Navbarf from "./Components/UI-C/navbarf"
+import useStyles from "./Components/Styles";
 
 function App() {
+  const classes = useStyles()
   return (
-    
-    <Menuepage/>
-
+     <div  className={classes.container}>
+     <Router>
+        <Navbarf/>
+     </Router>
+     </div>
   );
 }
 
