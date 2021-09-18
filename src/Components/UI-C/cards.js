@@ -14,12 +14,12 @@ import { Grid, Container } from '@material-ui/core';
 // import {MoreVertIcon} from '@material-ui/icons'
 import useStyles from "./UIStyles";
 
+const { REACT_APP_API_PROXY } =process.env;
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
-
   const [depatments,setdepatments] = useState([])
   const setdata = async () => {
-    const responce = await fetch("http://localhost:8080/depatments",{
+    const responce = await fetch(`${REACT_APP_API_PROXY}depatments`,{
       method: "GET"
     })
     const data = await responce.json()

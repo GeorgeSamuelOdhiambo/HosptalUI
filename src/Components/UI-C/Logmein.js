@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
+require("dotenv").config();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,7 +49,7 @@ export default function SignIn(props) {
 
   const logmein = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:8080/login", {
+    fetch(`${process.env.API_PROXY}login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -60,7 +61,11 @@ export default function SignIn(props) {
         return data.json();
       })
       .then((jdata) => {
-        console.log(jdata);
+
+        localStorage.setItem("token", jdata.token);
+        localStorage.setItem('userId', jdata.userId);
+        // isAuth(true)
+        
         if (jdata.massage != null) {
           seterror(true);
         } else {
