@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React from "react";
+import { useHistory } from 'react-router-dom'
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,7 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
-require("dotenv").config();
+import AuthContext from "../../Store/auth-context";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,16 +42,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+ const API_PROXY = "http://localhost:8080/"
 export default function SignIn(props) {
-  const [error, seterror] = useState(false);
+  const [error, seterror] = React.useState(false);
+  const authCtx = React.useContext(AuthContext);
   const classes = useStyles();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  props.setfalls();
+  const emailRef = React.useRef();
+  const passwordRef = React.useRef();
+  let history = useHistory();
 
   const logmein = async (e) => {
     e.preventDefault();
-    fetch(`${process.env.API_PROXY}login`, {
+    fetch(`${API_PROXY}login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -62,13 +66,13 @@ export default function SignIn(props) {
       })
       .then((jdata) => {
 
-        localStorage.setItem("token", jdata.token);
+        authCtx.login(jdata.token)
         localStorage.setItem('userId', jdata.userId);
-        // isAuth(true)
         
         if (jdata.massage != null) {
-          seterror(true);
+          props.seterror(true);
         } else {
+          history.replace("/user");
           seterror(false);
         }
       })
@@ -135,15 +139,15 @@ export default function SignIn(props) {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href="/forgotpass" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
+            {/* <Grid item>
+              <Link href="/creat" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
-            </Grid>
+            </Grid> */}
           </Grid>
         </form>
       </div>

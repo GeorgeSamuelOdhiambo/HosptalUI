@@ -1,7 +1,6 @@
-import React,{ useState } from 'react';
-import {Switch,Route} from "react-router-dom"
+import React from 'react';
+import {Switch,Route,Redirect} from "react-router-dom"
 import PropTypes from 'prop-types';
-import Toolbar from '@material-ui/core/Toolbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Container from '@material-ui/core/Container';
@@ -14,6 +13,8 @@ import Cards from "../UI-C/cards"
 import useStyles from "./UIStyles"
 import Logmein from "../UI-C/Logmein"
 import Footer from "../UI-C/Footer"
+import Roles from '../Frontdesk/roles';
+import AuthContext from '../../Store/auth-context';
 
 const ScrollTop = (props) => {
   const { children, window } = props;
@@ -52,39 +53,44 @@ ScrollTop.propTypes = {
 };
 
 const BackToTop = (props) => {
-  const [header,setheader] = useState(true)
-  const tofals = () => {
-    setheader(false);
+  const [header,setheader] = React.useState(true)
+  const authCtx = React.useContext(AuthContext)
+
+  const tofals = (props) => {
+    setheader(props);
   }
+
   const settrue = () => {
     setheader(true)
   }
   return (
     <React.Fragment>
       <CssBaseline />
-        { header && <Navbar/>}
-      { header && <Toolbar id="back-to-top-anchor" />}
+       <Navbar/>
       <Container>
       <Switch>
-          <Route path="/" exact>
+          {!authCtx.isLoggedIn && <Route path="/" exact>
             <Maine settrue={settrue}/>
             <Cards/>
-          </Route>
-          <Route path="/topics">
-            <Cards />
-          </Route>
-          <Route path="/login">
-           <Logmein setfalls={tofals}/>
+          </Route>}
+          {authCtx.isLoggedIn && <Route path="/user">
+            <Roles/>
+          </Route>}
+          {!authCtx.isLoggedIn && <Route path="/login">
+           <Logmein/>
+          </Route>}
+          <Route path="*">
+            <Redirect to="/"/>
           </Route>
         </Switch>
       </Container>
-      {header &&  <ScrollTop {...props}>
+
+      <ScrollTop {...props}>
         <Fab color="secondary" size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>
-   }
-     { header && <Footer/>}
+       <Footer/>
     </React.Fragment>
   );
 }

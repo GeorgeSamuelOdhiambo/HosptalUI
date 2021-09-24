@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
       },
       head:{
         backgroundColor: "green",
+        alignSelf: "center"
+      },
+      center:{
         alignItems: "center"
       },
 

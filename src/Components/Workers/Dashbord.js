@@ -153,7 +153,9 @@ export default function Dashboard() {
       </Drawer>
       
       <main className={classes.content}>
-      <Navbar/>
+      <Grid container>
+        
+      </Grid>
       </main>
     </div>
   );

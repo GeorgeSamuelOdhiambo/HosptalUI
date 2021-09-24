@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useContext } from 'react';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -14,6 +14,10 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import AuthContext from '../../Store/auth-context';import RoomIcon from '@material-ui/icons/Room';
+import { Button } from '@material-ui/core';
+import { useHistory } from "react-router-dom"
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  titleone: {
+    textAlign: "center",
+    display: ""
   },
   title: {
     display: 'none',
@@ -83,6 +91,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+  let history = useHistory();
+  const authCtx = useContext(AuthContext);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -94,6 +104,10 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(event.currentTarget);
   };
 
+  const toLoginHandler = () => {
+    history.push("/login")
+  }
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -101,13 +115,14 @@ export default function PrimarySearchAppBar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+    authCtx.logout();
   };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const menuId = 'primary-search-account-menu';
+  const menuId = 'primary-search-account-menu'; 
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -118,7 +133,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>LogOut</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -168,18 +183,21 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static" color="primary">
         <Toolbar>
-          <IconButton
+          {authCtx.isLoggedIn && <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          </IconButton>}
+          {authCtx.isLoggedIn &&  <Typography className={classes.title} variant="h6" noWrap>
             Lake View Hotel
-          </Typography>
-          <div className={classes.search}>
+          </Typography>}
+          {!authCtx.isLoggedIn &&  <Typography className={classes.titleone} variant="h6" noWrap>
+            Lake View Hotel
+          </Typography>}
+          {authCtx.isLoggedIn && <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -191,9 +209,12 @@ export default function PrimarySearchAppBar() {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
-          </div>
+          </div>}
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
+          {authCtx.isLoggedIn && <div className={classes.sectionDesktop}>
+            <IconButton>
+              logout
+            </IconButton>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />
@@ -214,8 +235,8 @@ export default function PrimarySearchAppBar() {
             >
               <AccountCircle />
             </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
+          </div>}
+          {authCtx.isLoggedIn && <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"
               aria-controls={mobileMenuId}
@@ -225,7 +246,8 @@ export default function PrimarySearchAppBar() {
             >
               <MoreIcon />
             </IconButton>
-          </div>
+          </div>}
+          {!authCtx.isLoggedIn && <Button onClick={toLoginHandler} color="inherit">Login</Button>}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
