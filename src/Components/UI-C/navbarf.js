@@ -67,6 +67,7 @@ const BackToTop = (props) => {
     <React.Fragment>
       <CssBaseline />
        <Navbar/>
+       
       <Container>
       <Switch>
           {!authCtx.isLoggedIn && <Route path="/" exact>
