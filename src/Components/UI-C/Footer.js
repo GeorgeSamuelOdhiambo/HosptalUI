@@ -7,10 +7,10 @@ const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
+      {new Date().getFullYear() +''}
       <Link color="inherit" href="#">
-        Lake View Hotel
+         Lake View Hotel
       </Link>{' '}
-      {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
@@ -21,9 +21,9 @@ const StickyFooter = () => {
 
   return (
     <footer className={classes.footer}>
-    <Typography variant="h6" align="center" gutterBottom>
+    {/* <Typography variant="h6" align="center" gutterBottom>
       Odhiambo George
-    </Typography>
+    </Typography> */}
     <Typography
       variant="subtitle1"
       align="center"
