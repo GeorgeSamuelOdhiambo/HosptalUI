@@ -35,7 +35,9 @@ const useStyles = makeStyles((theme) => ({
       center:{
         alignItems: "center"
       },
-
+text:{
+  textAlign: "center"
+},
       //Hero css
       roothero: {
         backgroundColor: "green",

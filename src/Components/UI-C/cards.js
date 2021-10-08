@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -8,14 +7,12 @@ import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import { Grid, Container, Button } from "@material-ui/core";
+import {API_PROXY} from "../Constants"
 // import {MoreVertIcon} from '@material-ui/icons'
 import useStyles from "./UIStyles";
-import { Stack } from "@mui/material";
 
-const API_PROXY = "http://localhost:8080/";
+
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
   const [depatments, setdepatments] = useState([]);
@@ -27,6 +24,9 @@ export default function RecipeReviewCard(props) {
     setdepatments(data);
   };
 
+  const depatmentclick = (id) => {
+    console.log(id);
+  }
   useEffect(() => {
     setdata();
   }, []);
@@ -62,7 +62,7 @@ export default function RecipeReviewCard(props) {
                 </Typography>
               </CardContent>
               <CardActions disableSpacing className={classes.head}>
-                <Button variant="contained">Contained</Button>
+                <Button variant="contained" onClick={depatmentclick(dep._id)}>Contained</Button>
               </CardActions>
             </Card>
           </Grid>

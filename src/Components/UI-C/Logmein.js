@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Alert from "@material-ui/lab/Alert";
 import AuthContext from "../../Store/auth-context";
+import { API_PROXY } from "../Constants"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- const API_PROXY = "http://localhost:8080/"
 export default function SignIn(props) {
   const [error, seterror] = React.useState(false);
   const authCtx = React.useContext(AuthContext);

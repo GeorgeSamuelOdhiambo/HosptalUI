@@ -9,14 +9,14 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import useStyles from "./Menucss";
-
+import {API_PROXY} from "../Constants"
 
 const Album = () => {
   const classes = useStyles();
   const [cards,setcards] = useState([]);
 
   const setdata = async () => {
-    const responce = await fetch("http://localhost:8080/menue",{
+    const responce = await fetch(`${API_PROXY}menue`,{
       method: "GET"
     })
     const data = await responce.json()
