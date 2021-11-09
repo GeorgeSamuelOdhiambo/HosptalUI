@@ -11,9 +11,11 @@ import { Grid, Container, Button } from "@material-ui/core";
 import {API_PROXY} from "../Constants"
 // import {MoreVertIcon} from '@material-ui/icons'
 import useStyles from "./UIStyles";
+import { useHistory } from "react-router";
 
 
 export default function RecipeReviewCard(props) {
+ let history = useHistory();
   const classes = useStyles();
   const [depatments, setdepatments] = useState([]);
   const setdata = async () => {
@@ -25,7 +27,8 @@ export default function RecipeReviewCard(props) {
   };
 
   const depatmentclick = (id) => {
-    console.log(id);
+    // console.log(id);
+    // history.push("/login")
   }
   useEffect(() => {
     setdata();
@@ -62,7 +65,7 @@ export default function RecipeReviewCard(props) {
                 </Typography>
               </CardContent>
               <CardActions disableSpacing className={classes.head}>
-                <Button variant="contained" onClick={depatmentclick(dep._id)}>Contained</Button>
+                <Button variant="contained" onClick={depatmentclick}>Visit</Button>
               </CardActions>
             </Card>
           </Grid>

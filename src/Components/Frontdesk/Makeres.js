@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -8,9 +7,9 @@ import Checkbox from '@mui/material/Checkbox';
 export default function AddressForm() {
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Shipping address
-      </Typography>
+      {/* <Typography variant="h6" gutterBottom>
+        Fill in the fields Below
+      </Typography> */}
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -39,7 +38,7 @@ export default function AddressForm() {
             required
             id="address1"
             name="address1"
-            label="Address line 1"
+            label="Email Adress"
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
@@ -60,7 +59,7 @@ export default function AddressForm() {
             required
             id="city"
             name="city"
-            label="City"
+            label="Durettion of Stay"
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
@@ -70,7 +69,7 @@ export default function AddressForm() {
           <TextField
             id="state"
             name="state"
-            label="State/Province/Region"
+            label="Room booked"
             fullWidth
             variant="standard"
           />
@@ -80,7 +79,7 @@ export default function AddressForm() {
             required
             id="zip"
             name="zip"
-            label="Zip / Postal code"
+            label="Booking time"
             fullWidth
             autoComplete="shipping postal-code"
             variant="standard"
@@ -91,7 +90,7 @@ export default function AddressForm() {
             required
             id="country"
             name="country"
-            label="Country"
+            label="Arrival Time"
             fullWidth
             autoComplete="shipping country"
             variant="standard"
